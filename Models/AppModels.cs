@@ -15,12 +15,22 @@ namespace UserDashboard.Models
 {
     public class User: IdentityUser
     {
+        [Required]
+        [Display(Description="Username")]
         public string Name {get; set;}
         public DateTime CreatedAt {get; set;}
         [DataType(DataType.Password)]
+        [Required]
         public string Password {get; set;}
+        [Required]
         public string Description {get; set;}
+        [Required]
+        [MinLength(4)]
+        [Display(Description="First Name")]
         public string FirstName {get; set;}
+        [Required]
+        [MinLength(4)]
+        [Display(Description="Last Name")]
         public string LastName {get; set;}
         public List<Message> messages {get; set;}
         public List<Comment> comments {get; set;}        

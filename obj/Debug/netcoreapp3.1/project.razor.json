@@ -14407,6 +14407,11 @@
       "FileKind": "mvc"
     },
     {
+      "FilePath": "c:\\Users\\onsil\\OneDrive\\Desktop\\MyProjects\\UserDashboard\\Views\\Shared\\Register.cshtml",
+      "TargetPath": "Views\\Shared\\Register.cshtml",
+      "FileKind": "mvc"
+    },
+    {
       "FilePath": "c:\\Users\\onsil\\OneDrive\\Desktop\\MyProjects\\UserDashboard\\Views\\Shared\\_ValidationScriptsPartial.cshtml",
       "TargetPath": "Views\\Shared\\_ValidationScriptsPartial.cshtml",
       "FileKind": "mvc"
@@ -14449,16 +14454,6 @@
     {
       "FilePath": "c:\\Users\\onsil\\OneDrive\\Desktop\\MyProjects\\UserDashboard\\Views\\Shared\\Error.cshtml",
       "TargetPath": "Views\\Shared\\Error.cshtml",
-      "FileKind": "mvc"
-    },
-    {
-      "FilePath": "c:\\Users\\onsil\\OneDrive\\Desktop\\MyProjects\\UserDashboard\\Views\\Home\\Login.cshtml",
-      "TargetPath": "Views\\Home\\Login.cshtml",
-      "FileKind": "mvc"
-    },
-    {
-      "FilePath": "c:\\Users\\onsil\\OneDrive\\Desktop\\MyProjects\\UserDashboard\\Views\\Home\\Register.cshtml",
-      "TargetPath": "Views\\Home\\Register.cshtml",
       "FileKind": "mvc"
     }
   ],

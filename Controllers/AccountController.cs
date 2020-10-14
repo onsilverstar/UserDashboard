@@ -83,7 +83,7 @@ namespace UserDashboard.Controllers
                 }
                 
             }
-            return RedirectToAction("Index", "Home", model);
+            return View("Register", model);
             
         }
         private Task<User> GetCurrentUserAsync()

@@ -62,12 +62,11 @@ C:\Users\onsil\OneDrive\Desktop\MyProjects\UserDashboard\bin\Debug\netcoreapp3.1
 C:\Users\onsil\OneDrive\Desktop\MyProjects\UserDashboard\bin\Debug\netcoreapp3.1\Pomelo.JsonObject.dll
 C:\Users\onsil\OneDrive\Desktop\MyProjects\UserDashboard\bin\Debug\netcoreapp3.1\System.Collections.Immutable.dll
 C:\Users\onsil\OneDrive\Desktop\MyProjects\UserDashboard\bin\Debug\netcoreapp3.1\System.Diagnostics.DiagnosticSource.dll
-C:\Users\onsil\OneDrive\Desktop\MyProjects\UserDashboard\obj\Debug\netcoreapp3.1\Razor\Views\Home\Login.cshtml.g.cs
 C:\Users\onsil\OneDrive\Desktop\MyProjects\UserDashboard\bin\Debug\netcoreapp3.1\Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore.dll
-C:\Users\onsil\OneDrive\Desktop\MyProjects\UserDashboard\obj\Debug\netcoreapp3.1\Razor\Views\Home\Register.cshtml.g.cs
 C:\Users\onsil\OneDrive\Desktop\MyProjects\UserDashboard\obj\Debug\netcoreapp3.1\Razor\Views\Home\AllUsers.cshtml.g.cs
 C:\Users\onsil\OneDrive\Desktop\MyProjects\UserDashboard\obj\Debug\netcoreapp3.1\Razor\Views\Home\EditAdmin.cshtml.g.cs
 C:\Users\onsil\OneDrive\Desktop\MyProjects\UserDashboard\obj\Debug\netcoreapp3.1\Razor\Views\Home\EditUser.cshtml.g.cs
 C:\Users\onsil\OneDrive\Desktop\MyProjects\UserDashboard\obj\Debug\netcoreapp3.1\Razor\Views\Adminstration\Roles.cshtml.g.cs
 C:\Users\onsil\OneDrive\Desktop\MyProjects\UserDashboard\obj\Debug\netcoreapp3.1\Razor\Views\Home\Wall.cshtml.g.cs
 C:\Users\onsil\OneDrive\Desktop\MyProjects\UserDashboard\obj\Debug\netcoreapp3.1\Razor\Views\Shared\Login.cshtml.g.cs
+C:\Users\onsil\OneDrive\Desktop\MyProjects\UserDashboard\obj\Debug\netcoreapp3.1\Razor\Views\Shared\Register.cshtml.g.cs
