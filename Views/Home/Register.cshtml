@@ -1,0 +1,33 @@
+@model User
+<div class="jumbotron">
+    <form asp-action="ProcessRegister" asp-controller="Account" method="POST">
+        <div class="form-group">
+            <span asp-validation-for="UserName"></span>
+            <label>Username</label>
+            <input class="form-control" asp-for="UserName">
+        </div>
+        <div class="form-group">
+            <span asp-validation-for="FirstName"></span>
+            <label>First Name</label>
+            <input class="form-control" asp-for="FirstName">
+        </div>
+        <div class="form-group">
+            <span asp-validation-for="LastName"></span>
+            <label>Last Name</label>
+            <input class="form-control" asp-for="LastName">
+        </div>
+        <div class="form-group">
+            <span asp-validation-for="Email"></span>
+            <label>Email</label>
+            <input class="form-control" asp-for="Email">
+        </div>
+        <div class="form-group">
+            <span asp-validation-for="Password"></span>
+            <label asp-for="Password"></label>
+            <input class="form-control" asp-for="Password">
+        </div>
+        <div class="form-group">
+            <input type="submit" value="Register" class="btn btn-primary">
+        </div>
+    </form>
+</div>

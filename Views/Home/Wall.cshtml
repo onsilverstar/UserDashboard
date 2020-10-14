@@ -1,0 +1,71 @@
+@model Post
+<h5>Welcome @ViewBag.Current.FirstName @ViewBag.Current.LastName</h5>
+<div class="jumbotron">
+    <form asp-action="ProcessMessage" asp-controller="Home" method="POST">
+        <div class="form-group">
+            <span asp-validation-for="message.content"></span>
+            <label>Send Message</label>
+            <textarea class="form-control" asp-for="message.content"></textarea>
+        </div>
+         <div>
+            <input  class="btn btn-primary" type="submit" value="Post">
+        </div>
+    </form>
+</div>
+@{
+    foreach(var Message in ViewBag.Messages)
+    {
+        TimeSpan duration=Message.duration;
+        string time="";
+        if(duration.Days>0)
+        {
+            time+=duration.Days.ToString()+" "+"days"+" "+duration.Hours.ToString()+" "+"hours"+" "+"ago";;
+        }
+        else
+        {
+            time+=duration.Hours.ToString()+" "+"hours"+" "+duration.Minutes.ToString()+" "+"minutes"+" "+"ago";
+        }
+        <div>
+            <div class="jumbotron">
+                <h6>@Message.Author wrote:</h6>
+                <p>@Message.content</p>
+                <p><em>@time</em></p>
+            </div>
+            @{
+                foreach(var Comment in Message.comment)
+                {
+                    TimeSpan CommentDuration=Message.duration;
+                    string CommentTime="";
+                    if(duration.Days>0)
+                    {
+                        CommentTime+=CommentDuration.Days.ToString()+" "+"days"+" "+CommentDuration.Hours.ToString()+" "+"hours"+" "+"ago";;
+                    }
+                    else
+                    {
+                        CommentTime+=CommentDuration.Hours.ToString()+" "+"hours"+" "+CommentDuration.Minutes.ToString()+" "+"minutes"+" "+"ago";
+                    }
+                    <div class="comment">
+                        <h6>@Comment.Author wrote:</h6>
+                        <p>@Comment.content</p>
+                        <p><em>@CommentTime</em></p>
+                    </div>
+                }
+            }
+             <div class="comment">
+                    <form asp-action="ProcessComment" asp-controller="Home" method="POST">
+                        <div class="form-group">
+                            <span asp-validation-for="comment.content"></span>
+                            <label>Comment</label>
+                            <textarea class="form-control"asp-for="comment.content"></textarea>
+                        </div>
+                        <div>
+                            <input asp-for="MessageId" type="hidden" value="@Message.MessageId">
+                        </div>
+                        <div>
+                            <input  class="btn btn-primary" type="submit" value="Comment">
+                        </div>
+                    </form>
+                </div>
+        </div>
+    }
+}

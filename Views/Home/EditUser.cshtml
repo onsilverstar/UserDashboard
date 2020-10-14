@@ -1,0 +1,52 @@
+@model User
+<div class="wrapper">
+    <form asp-action="ProcessRegister" asp-controller="Account" method="POST">
+        <div class="form-group">
+            <span asp-validation-for="UserName"></span>
+            <label>Username</label>
+            <input class="form-control" asp-for="UserName">
+        </div>
+        <div class="form-group">
+            <span asp-validation-for="Email"></span>
+            <label>Email</label>
+            <input class="form-control" asp-for="Email">
+        </div>
+        <div class="form-group">
+            <span asp-validation-for="Name"></span>
+            <label>Name</label>
+            <input class="form-control" asp-for="Name">
+        </div>
+        <div class="form-group">
+            <input type="submit" value="Register" class="btn btn-primary">
+        </div>
+    </form>
+</div>
+<div class="wrapper">
+        <form asp-action="ProcessLogin" asp-controller="Account" method="POST">
+            <div class="form-group">
+                <span asp-validation-for="Password"></span>
+                <label asp-for="Password"></label>
+                <input class="form-control"asp-for="Password">
+            </div>
+            <div class="form-group">
+                <span asp-validation-for="Password"></span>
+                <label>"Password Confirmation"</label>
+                <input class="form-control"asp-for="Password">
+            </div>
+            <div class="form-group">
+                <input  class="btn btn-primary" type="submit" value="Login">
+            </div>
+        </form>
+    </div>
+    <div class="wrapper">
+        <form asp-action="ProcessLogin" asp-controller="Account" method="POST">
+            <div class="form-group">
+                <span asp-validation-for="Description"></span>
+                <label>Description</label>
+                <input class="form-control"asp-for="Description">
+            </div>
+            <div class="form-group">
+                <input  class="btn btn-primary" type="submit" value="Login">
+            </div>
+        </form>
+    </div>

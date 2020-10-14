@@ -1,0 +1,39 @@
+@model List<User>
+<div class="container">
+</div>
+<h3>All Users</h3>
+<div class="tablewrapper">
+<table class="table">
+    <thead>
+        <tr>
+            <td><strong>#<strong></strong></td>
+            <td><strong>Name<strong></td>
+            <td><strong>Email<strong></td>
+            <td><strong>Created_At<strong></td>
+            <td><strong>User_Level</strong></td>
+            <td><strong>Actions</strong></td>
+
+        </tr>
+    </thead>
+    <tbody>
+        @{
+            int counter=0;
+            foreach(var k in Model)
+            {
+                counter++;
+                <tr>
+                <td>@counter</td>
+                <td><a asp-route-id="@k.Id" asp-action="ViewUser">@k.FirstName @k.LastName</a></td>
+                <td>@k.Email</td>
+                <td>@k.CreatedAt</td>
+                <td>User_Level</td>
+                <td><a asp-action="ProcessDelete" asp-route-id="@k.Id" asp-controller="Home">Remove</a> <a asp-route-id="@k.Id" asp-action="Edit" asp-controller="Home">Edit</a></td>
+                </tr>
+
+            }
+        }
+
+    </tbody>
+</table>
+</div>
+</div>

@@ -1,0 +1,10 @@
+@model UserRoles
+<div class="wrapper">
+    <form class="form-group" method=post asp-action="CreateRole">
+        <span asp-validation-for="RoleName"></span>
+        <label asp-for="RoleName"></label>
+        <input class="form-control" asp-for="RoleName">
+        <br>
+        <input type="submit" value="Create Role">
+    </form>
+</div>
