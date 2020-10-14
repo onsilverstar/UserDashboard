@@ -22,7 +22,7 @@ namespace UserDashboard.Controllers
         }
         [Route("Account/Login")]
         [HttpPost]
-        public async Task<IActionResult> ProcessLogin(User model)
+        public async Task<IActionResult> ProcessLogin(Login model)
         {
             if (ModelState.IsValid)
             {
@@ -35,9 +35,11 @@ namespace UserDashboard.Controllers
                 }
                 
                     ModelState.AddModelError(string.Empty, "Invalid Login");
+                    ViewBag.LoginError=ModelState.ToList();
                 
             }
-            return View("Login");
+            var val=ModelState.ToList();
+            return View("Login",model);
             
         }
         [Route("Account/AdminLoginPage")]
@@ -65,17 +67,20 @@ namespace UserDashboard.Controllers
         {
             if (ModelState.IsValid)
             {
-                User newuser=new User {UserName=model.UserName, Email=model.Email,EmailConfirmed=model.EmailConfirmed, Password=model.Password, FirstName=model.FirstName, LastName=model.LastName};
+                User newuser=new User {UserName=model.UserName, Description=model.Description, Email=model.Email,EmailConfirmed=model.EmailConfirmed, Password=model.Password, FirstName=model.FirstName, LastName=model.LastName};
                 IdentityResult result=await userManager.CreateAsync(newuser, model.Password);
                 if(result.Succeeded)
                 {
                     if(dbcontext.Users.Count()<1)
                     {
                         await userManager.AddToRoleAsync(newuser, "Level3");
-                        return RedirectToAction("AllOrders", "Home", model); 
+                        return RedirectToAction("Login", model); 
                     }
-                    await userManager.AddToRoleAsync(newuser, "Level1");
-                    return RedirectToAction("AllOrders", "Home"); 
+                    else
+                    {
+                        await userManager.AddToRoleAsync(newuser, "Level1");
+                        return RedirectToAction("Login", model); 
+                    }
                 }
                 foreach(var error in result.Errors)
                 {

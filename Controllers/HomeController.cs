@@ -74,9 +74,10 @@ namespace UserDashboard.Controllers
             NewMessage.CreatedAt=DateTime.Now;
             NewMessage.user=dbContext.Users.FirstOrDefault(b=>b.Id==HttpContext.Session.GetObjectFromJson<String>("UserViewed"));
             NewMessage.Author=HttpContext.Session.GetObjectFromJson<String>("Username");
+            string CurrentUserId=dbContext.Users.FirstOrDefault(y=>y.UserName==NewMessage.Author).Id;
             dbContext.messages.Add(NewMessage);
             dbContext.SaveChanges();
-            return RedirectToAction("AllUsers");
+            return RedirectToAction("ViewUser", CurrentUserId);
         }
          public IActionResult ProcessComment(Post NewPost)
         {
@@ -86,19 +87,20 @@ namespace UserDashboard.Controllers
             NewComment.user=dbContext.Users.FirstOrDefault(b=>b.Id==HttpContext.Session.GetObjectFromJson<String>("UserViewed"));
             NewComment.message=CurrentMessage;
             NewComment.Author=HttpContext.Session.GetObjectFromJson<String>("Username");
+            string CurrentUserId=dbContext.Users.FirstOrDefault(y=>y.UserName==NewComment.Author).Id;
             dbContext.comments.Add(NewComment);
             dbContext.SaveChanges();
-            return RedirectToAction("AllUsers");
+            return RedirectToAction("ViewUser",CurrentUserId);
         }
         [HttpGet]
-        [Route("/viewuser/{id}")]
+        [Route("/{id}/ViewUser")]
         [Authorize(Roles="Level1")]
         public IActionResult ViewUser(string id)
         {
             User CurrentUser=dbContext.Users.FirstOrDefault(m=>m.Id==id);
             var messages=dbContext.messages;
             var comments=dbContext.comments;
-            var MessagesWithComments=dbContext.messages.Include(t=>t.user).Include(s=>s.comment).Where(q=>q.user.Id==id).OrderBy(r=>r.CreatedAt).Take(5).ToList();
+            var MessagesWithComments=dbContext.messages.Include(t=>t.user).Include(s=>s.comment).Where(q=>q.user.Id==id).OrderByDescending(r=>r.CreatedAt).Take(5).ToList();
             HttpContext.Session.SetObjectAsJson("UserViewed", id);
             ViewBag.Messages=MessagesWithComments;
             User author=dbContext.Users.FirstOrDefault(o=>o.UserName==HttpContext.Session.GetObjectFromJson<String>("Username"));
