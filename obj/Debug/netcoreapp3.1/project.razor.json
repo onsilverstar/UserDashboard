@@ -14397,11 +14397,6 @@
       "FileKind": "mvc"
     },
     {
-      "FilePath": "c:\\Users\\onsil\\OneDrive\\Desktop\\MyProjects\\UserDashboard\\Views\\Home\\AllUsers.cshtml",
-      "TargetPath": "Views\\Home\\AllUsers.cshtml",
-      "FileKind": "mvc"
-    },
-    {
       "FilePath": "c:\\Users\\onsil\\OneDrive\\Desktop\\MyProjects\\UserDashboard\\Views\\Shared\\Login.cshtml",
       "TargetPath": "Views\\Shared\\Login.cshtml",
       "FileKind": "mvc"
@@ -14452,8 +14447,18 @@
       "FileKind": "mvc"
     },
     {
+      "FilePath": "c:\\Users\\onsil\\OneDrive\\Desktop\\MyProjects\\UserDashboard\\Views\\Shared\\AllUsers.cshtml",
+      "TargetPath": "Views\\Shared\\AllUsers.cshtml",
+      "FileKind": "mvc"
+    },
+    {
       "FilePath": "c:\\Users\\onsil\\OneDrive\\Desktop\\MyProjects\\UserDashboard\\Views\\Shared\\Error.cshtml",
       "TargetPath": "Views\\Shared\\Error.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "c:\\Users\\onsil\\OneDrive\\Desktop\\MyProjects\\UserDashboard\\Views\\Shared\\EditUser.cshtml",
+      "TargetPath": "Views\\Shared\\EditUser.cshtml",
       "FileKind": "mvc"
     }
   ],

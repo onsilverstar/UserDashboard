@@ -34,19 +34,30 @@ namespace UserDashboard.Controllers
             return View();
         }
         [HttpGet]
-        [Route("edit")]
-        public IActionResult Edit()
+        [Route("edit{id}")]
+        public IActionResult Edit(string id)
         {
-            return View("EditUser");
+            HttpContext.Session.SetObjectAsJson("UserViewed", id);
+            User model=dbContext.Users.FirstOrDefault(r=>r.Id==HttpContext.Session.GetObjectFromJson<String>("UserViewed"));
+            User newuser=new User {UserName=model.UserName, Description=model.Description, Email=model.Email,EmailConfirmed=model.EmailConfirmed, Password=model.Password, FirstName=model.FirstName, LastName=model.LastName};
+            return View("EditUser", model);
         }
-        [HttpGet]
+        /*[HttpGet]
         [Route("/allusers")]
         [Authorize(Roles="Level1")]
-        public IActionResult AllUsers()
+        public async Task<IActionResult> AllUsers()
         {
-            List<User> AllUsers=dbContext.Users.ToList();
+            List<User> AllUsers= await dbContext.Users.ToListAsync();
+            List<User> modellist=new List<User>();
+            foreach(var model in AllUsers)
+            {
+                var role=await userManager.GetRolesAsync(model);
+                 User newuser=new User {UserName=model.UserName, Id=model.Id, Description=model.Description, Email=model.Email,EmailConfirmed=model.EmailConfirmed, Password=model.Password, FirstName=model.FirstName, LastName=model.LastName};
+                 newuser.role=role;
+                 modellist.Add(newuser);
+            }
             return View(AllUsers);
-        }
+        }*/
         [HttpGet]
         [Route("/delete{id}")]
         public IActionResult ProcessDelete(string id)
@@ -56,15 +67,7 @@ namespace UserDashboard.Controllers
             dbContext.SaveChanges();
             return RedirectToAction("AllUsers");
         }
-        [HttpPost]
-        [Route("/Edit{id}")]
-        public IActionResult ProcessEdit(string id)
-        {
-            var ToEdit=dbContext.Users.FirstOrDefault(v=>v.Id==id);
-            dbContext.Users.Update(ToEdit);
-            dbContext.SaveChanges();
-            return RedirectToAction("AllUsers");
-        }
+        
         [HttpPost]
         [Route("/processmessage")]
         public IActionResult ProcessMessage(Post NewPost)

@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Identity;
 using System.Threading.Tasks;
+using System;
 using System.Linq;
 using Newtonsoft.Json;
+using Microsoft.AspNetCore.Authorization;
 
 namespace UserDashboard.Controllers
 {
@@ -31,11 +33,11 @@ namespace UserDashboard.Controllers
                 {
                     HttpContext.Session.SetObjectAsJson("Username",model.UserName);
 
-                    return RedirectToAction("AllUsers", "Home");
+                    return RedirectToAction("AllUsers", "Account");
                 }
                 
                     ModelState.AddModelError(string.Empty, "Invalid Login");
-                    ViewBag.LoginError=ModelState.ToList();
+                    var LoginError=ModelState.ToList();
                 
             }
             var val=ModelState.ToList();
@@ -107,7 +109,48 @@ namespace UserDashboard.Controllers
         {
             return View();
         }
+        [HttpPost]
+        [Route("/update")]
+        public async Task<IActionResult> ProcessUpdate(User model)
+        {
+            if(ModelState.IsValid)
+                {
+                    User toUpdate= dbcontext.Users.FirstOrDefault(g=>g.Id==HttpContext.Session.GetObjectFromJson<String>("UserViewed"));
+                    User newuser=new User {UserName=model.UserName, Description=model.Description, Email=model.Email,EmailConfirmed=model.EmailConfirmed, Password=model.Password, FirstName=model.FirstName, LastName=model.LastName};
+                    var role=await userManager.GetRolesAsync(toUpdate);
+                    //var result=await userManager.ChangePasswordAsync(toUpdate, toUpdate.Password, model.Password);
+                    var result=await userManager.RemovePasswordAsync(toUpdate);
+                    if(result.Succeeded)
+                   {
+                        await userManager.AddPasswordAsync(toUpdate, model.Password);
+                        dbcontext.Update(toUpdate);
+                        dbcontext.SaveChanges();
+                        return RedirectToAction("AllUsers", "Home");
         
+                    }
+                    ModelState.AddModelError("Couldnt Update Password, Make sure to use use alphanumeric", model.Password);
+                }
+
+           
+            return View("EditUser", model);
+        }
+        [HttpGet]
+        [Route("/allusers")]
+        [Authorize(Roles="Level1")]
+        public async Task<IActionResult> AllUsers()
+        {
+            List<User> AllUsers= dbcontext.Users.ToList();
+            List<User> modellist=new List<User>();
+            foreach(var model in AllUsers)
+            {
+                var role=await userManager.GetRolesAsync(model);
+                 User newuser=new User {UserName=model.UserName, Id=model.Id, Description=model.Description, Email=model.Email,EmailConfirmed=model.EmailConfirmed, Password=model.Password, FirstName=model.FirstName, LastName=model.LastName};
+                 newuser.role=role;
+                 modellist.Add(newuser);
+            }
+            return View(modellist);
+        }
+    
     }
     
 }

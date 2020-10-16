@@ -1,5 +1,6 @@
 @model Login
 <div>
+    <div asp-validation-summary="All"></div>
     <a asp-action="Roles" asp-controller="Adminstration">Roles</a>
     <div class="jumbotron">
         <form asp-action="ProcessLogin" asp-controller="Account" method="POST">

@@ -28,7 +28,9 @@ namespace UserDashboard.Models
         [MinLength(4)]
         public string LastName {get; set;}
         public List<Message> messages {get; set;}
-        public List<Comment> comments {get; set;}        
+        public List<Comment> comments {get; set;}    
+        [NotMapped]   
+        public IList<string> role {get; set;} 
     }
      public class Message
     {

@@ -26,7 +26,7 @@
                 <td><a asp-route-id="@k.Id" asp-action="ViewUser">@k.FirstName @k.LastName</a></td>
                 <td>@k.Email</td>
                 <td>@k.CreatedAt</td>
-                <td>User_Level</td>
+                <td>@{foreach(var m in k.role){<p>@m</p>}}</td>
                 <td><a asp-action="ProcessDelete" asp-route-id="@k.Id" asp-controller="Home">Remove</a> <a asp-route-id="@k.Id" asp-action="Edit" asp-controller="Home">Edit</a></td>
                 </tr>
 

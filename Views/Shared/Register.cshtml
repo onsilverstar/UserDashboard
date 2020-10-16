@@ -1,5 +1,6 @@
 @model User
 <div class="jumbotron">
+    <div asp-validation-summary="All"></div>
     <form asp-action="ProcessRegister" asp-controller="Account" method="POST">
         <div class="form-group">
             <span asp-validation-for="UserName"></span>
