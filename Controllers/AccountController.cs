@@ -69,7 +69,7 @@ namespace UserDashboard.Controllers
         {
             if (ModelState.IsValid)
             {
-                User newuser=new User {UserName=model.UserName, Description=model.Description, Email=model.Email,EmailConfirmed=model.EmailConfirmed, Password=model.Password, FirstName=model.FirstName, LastName=model.LastName};
+                User newuser=new User {UserName=model.UserName, Description=model.Description, CreatedAt=DateTime.Now, Email=model.Email,EmailConfirmed=model.EmailConfirmed, Password=model.Password, FirstName=model.FirstName, LastName=model.LastName};
                 IdentityResult result=await userManager.CreateAsync(newuser, model.Password);
                 if(result.Succeeded)
                 {
@@ -103,11 +103,13 @@ namespace UserDashboard.Controllers
         {
             return View();
         }
-        [Route("Account/AdminLogin")]
+        [Route("logout")]
         [HttpGet]
-        public IActionResult AdminLogin(User model)
+        public async Task<IActionResult> Logout()
         {
-            return View();
+            await signInManager.SignOutAsync();
+            HttpContext.Session.Clear();
+            return RedirectToAction("Index", "Home");
         }
         [HttpPost]
         [Route("/update")]
@@ -118,14 +120,15 @@ namespace UserDashboard.Controllers
                     User toUpdate= dbcontext.Users.FirstOrDefault(g=>g.Id==HttpContext.Session.GetObjectFromJson<String>("UserViewed"));
                     User newuser=new User {UserName=model.UserName, Description=model.Description, Email=model.Email,EmailConfirmed=model.EmailConfirmed, Password=model.Password, FirstName=model.FirstName, LastName=model.LastName};
                     var role=await userManager.GetRolesAsync(toUpdate);
-                    //var result=await userManager.ChangePasswordAsync(toUpdate, toUpdate.Password, model.Password);
+                    await userManager.RemoveFromRolesAsync(toUpdate, role);
+                    await userManager.AddToRoleAsync(toUpdate, model.role[0]);
                     var result=await userManager.RemovePasswordAsync(toUpdate);
                     if(result.Succeeded)
                    {
                         await userManager.AddPasswordAsync(toUpdate, model.Password);
                         dbcontext.Update(toUpdate);
                         dbcontext.SaveChanges();
-                        return RedirectToAction("AllUsers", "Home");
+                        return RedirectToAction("AllUsers");
         
                     }
                     ModelState.AddModelError("Couldnt Update Password, Make sure to use use alphanumeric", model.Password);
@@ -148,7 +151,13 @@ namespace UserDashboard.Controllers
                  newuser.role=role;
                  modellist.Add(newuser);
             }
-            return View(modellist);
+            var currentUser=dbcontext.Users.FirstOrDefault(t=>t.UserName==HttpContext.Session.GetObjectFromJson<string>("Username"));
+            string stringrole=(await userManager.GetRolesAsync(currentUser))[0];
+            if(stringrole=="Level3")
+            {
+                return View(modellist);
+            }
+            return View("AllNonAdmin", modellist);
         }
     
     }

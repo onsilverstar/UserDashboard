@@ -1,10 +1,15 @@
 @model Post
 <h5>Welcome @ViewBag.Current.FirstName @ViewBag.Current.LastName</h5>
+<h6>Email: @ViewBag.Current.Email</h6>
+<h6>Username: @ViewBag.Current.UserName</h6>
+<h6>Description: @ViewBag.Current.Description</h6>
+
+<h6></h6>
 <div class="jumbotron">
     <form asp-action="ProcessMessage" asp-controller="Home" method="POST">
         <div class="form-group">
             <span asp-validation-for="message.content"></span>
-            <label>Send Message</label>
+            <label>Send @ViewBag.CurrentUser.FirstName @ViewBag.CurrentUser.LastName message</label>
             <textarea class="form-control" asp-for="message.content"></textarea>
         </div>
          <div>
@@ -34,9 +39,9 @@
             @{
                 foreach(var Comment in Message.comment)
                 {
-                    TimeSpan CommentDuration=Message.duration;
+                    TimeSpan CommentDuration=Comment.duration;
                     string CommentTime="";
-                    if(duration.Days>0)
+                    if(CommentDuration.Days>0)
                     {
                         CommentTime+=CommentDuration.Days.ToString()+" "+"days"+" "+CommentDuration.Hours.ToString()+" "+"hours"+" "+"ago";;
                     }

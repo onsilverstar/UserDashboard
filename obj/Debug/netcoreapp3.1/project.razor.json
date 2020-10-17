@@ -14422,6 +14422,11 @@
       "FileKind": "mvc"
     },
     {
+      "FilePath": "c:\\Users\\onsil\\OneDrive\\Desktop\\MyProjects\\UserDashboard\\Views\\Shared\\AllNonAdmin.cshtml",
+      "TargetPath": "Views\\Shared\\AllNonAdmin.cshtml",
+      "FileKind": "mvc"
+    },
+    {
       "FilePath": "c:\\Users\\onsil\\OneDrive\\Desktop\\MyProjects\\UserDashboard\\Views\\Adminstration\\Roles.cshtml",
       "TargetPath": "Views\\Adminstration\\Roles.cshtml",
       "FileKind": "mvc"
@@ -14434,11 +14439,6 @@
     {
       "FilePath": "c:\\Users\\onsil\\OneDrive\\Desktop\\MyProjects\\UserDashboard\\Views\\Home\\EditAdmin.cshtml",
       "TargetPath": "Views\\Home\\EditAdmin.cshtml",
-      "FileKind": "mvc"
-    },
-    {
-      "FilePath": "c:\\Users\\onsil\\OneDrive\\Desktop\\MyProjects\\UserDashboard\\Views\\Home\\EditUser.cshtml",
-      "TargetPath": "Views\\Home\\EditUser.cshtml",
       "FileKind": "mvc"
     },
     {

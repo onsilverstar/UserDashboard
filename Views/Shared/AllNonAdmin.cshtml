@@ -1,7 +1,6 @@
 @model List<User>
 <div class="container">
 </div>
-<a asp-action="Roles" asp-controller="Adminstration">Roles</a>
 <h3>All Users</h3>
 <div class="tablewrapper">
 <table class="table">
@@ -12,8 +11,6 @@
             <td><strong>Email<strong></td>
             <td><strong>Created_At<strong></td>
             <td><strong>User_Level</strong></td>
-            <td><strong>Actions</strong></td>
-
         </tr>
     </thead>
     <tbody>
@@ -24,13 +21,11 @@
                 counter++;
                 <tr>
                 <td>@counter</td>
-                <td><a asp-route-id="@k.Id" asp-action="ViewUser">@k.FirstName @k.LastName</a></td>
+                <td><a asp-route-id="@k.Id" asp-controller="Home" asp-action="ViewUser">@k.FirstName @k.LastName</a></td>
                 <td>@k.Email</td>
                 <td>@k.CreatedAt</td>
                 <td>@{foreach(var m in k.role){<p>@m</p>}}</td>
-                <td><a asp-action="ProcessDelete" asp-route-id="@k.Id" asp-controller="Home">Remove</a> <a asp-route-id="@k.Id" asp-action="Edit" asp-controller="Home">Edit</a></td>
                 </tr>
-
             }
         }
 

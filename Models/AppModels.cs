@@ -31,6 +31,8 @@ namespace UserDashboard.Models
         public List<Comment> comments {get; set;}    
         [NotMapped]   
         public IList<string> role {get; set;} 
+        [NotMapped]
+        public string getrole {get; set;}
     }
      public class Message
     {

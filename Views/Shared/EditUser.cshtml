@@ -27,6 +27,20 @@
             <label asp-for="Password"></label>
             <input class="form-control" asp-for="Password">
         </div>
+        <div class="form-group">
+            <span asp-validation-for="role"></span>
+            <label>Role</label>
+            <select class="form-control" asp-for="role">
+                @{
+                    foreach(var k in ViewBag.roles)
+                    {
+                        <option>
+                            @k.Name
+                        </option>
+                    }
+                }
+            </select>
+        </div>
          <div class="form-group">
             <span asp-validation-for="Description"></span>
             <label asp-for="Description"></label>

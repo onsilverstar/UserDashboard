@@ -40,26 +40,13 @@ namespace UserDashboard.Controllers
             HttpContext.Session.SetObjectAsJson("UserViewed", id);
             User model=dbContext.Users.FirstOrDefault(r=>r.Id==HttpContext.Session.GetObjectFromJson<String>("UserViewed"));
             User newuser=new User {UserName=model.UserName, Description=model.Description, Email=model.Email,EmailConfirmed=model.EmailConfirmed, Password=model.Password, FirstName=model.FirstName, LastName=model.LastName};
+            var roles=dbContext.Roles.ToList();
+            ViewBag.roles=roles;
             return View("EditUser", model);
         }
-        /*[HttpGet]
-        [Route("/allusers")]
-        [Authorize(Roles="Level1")]
-        public async Task<IActionResult> AllUsers()
-        {
-            List<User> AllUsers= await dbContext.Users.ToListAsync();
-            List<User> modellist=new List<User>();
-            foreach(var model in AllUsers)
-            {
-                var role=await userManager.GetRolesAsync(model);
-                 User newuser=new User {UserName=model.UserName, Id=model.Id, Description=model.Description, Email=model.Email,EmailConfirmed=model.EmailConfirmed, Password=model.Password, FirstName=model.FirstName, LastName=model.LastName};
-                 newuser.role=role;
-                 modellist.Add(newuser);
-            }
-            return View(AllUsers);
-        }*/
         [HttpGet]
         [Route("/delete{id}")]
+        [Authorize(Roles="Level3")]
         public IActionResult ProcessDelete(string id)
         {
             var ToDelete=dbContext.Users.FirstOrDefault(v=>v.Id==id);
@@ -89,6 +76,7 @@ namespace UserDashboard.Controllers
             Message CurrentMessage=dbContext.messages.FirstOrDefault(l=>l.MessageId==NewPost.MessageId);
             NewComment.user=dbContext.Users.FirstOrDefault(b=>b.Id==HttpContext.Session.GetObjectFromJson<String>("UserViewed"));
             NewComment.message=CurrentMessage;
+            NewComment.CreatedAt=DateTime.Now;
             NewComment.Author=HttpContext.Session.GetObjectFromJson<String>("Username");
             string CurrentUserId=dbContext.Users.FirstOrDefault(y=>y.UserName==NewComment.Author).Id;
             dbContext.comments.Add(NewComment);
@@ -111,15 +99,19 @@ namespace UserDashboard.Controllers
             foreach(Message message in MessagesWithComments)
             {
                 message.duration=(DateTime.Now-message.CreatedAt);
-                foreach(Comment comment in message.comment)
+                foreach(var comment in message.comment)
                 {
-                    comment.duration=(DateTime.Now-message.CreatedAt);
+                    comment.duration=(DateTime.Now-comment.CreatedAt);
                 }
+    
             }
             Current.FirstName=author.FirstName;
             Current.LastName=author.LastName;
             Current.Email=author.Email;
+            Current.Description=author.Description;
+            Current.UserName=author.UserName;
             ViewBag.Current=Current;
+            ViewBag.CurrentUser=CurrentUser;
             return View("Wall");
         }
         public IActionResult Privacy()
